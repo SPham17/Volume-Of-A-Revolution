@@ -10,13 +10,12 @@ public class Main {
         double b;               // y - intercept
         double m;               // slope value
 
-        double low;             // lowerbound domain
-        double high;            // higherbound domain
-        double gx;              // gx value
+        double y1;             // lowerbound domain
+        double y2;            // higherbound domain
+        double x1;
+        double x2;
         int n;                  // number of slices
 
-        int deg;                // choice for degrees or rad (userinput
-        boolean degrees;        // degrees or rad, true or false
 
         int choice;             // choice to continue or leave (userinput)
         boolean cont = true;    // continue or leave, true or false
@@ -61,15 +60,20 @@ public class Main {
             System.out.println(" Please input your y-intercept");   // user inputs y - intercept
             b = s.nextDouble();
 
-            System.out.println(" What is the value of g(x)?");      // user inputs gx, sets restriction on the y axis
-            gx = s.nextDouble();
+
+            System.out.println(" Set two ranges\n " +              // user inputs lowerbound and higherbound domain
+                    "lowerbound ramge = ");
+            y1 = s.nextDouble();
+
+            System.out.println(" higherbound range = ");
+            y2 = s.nextDouble();
 
             System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
-                    "lowerbound domain = ");
-            low = s.nextDouble();
+                "lowerbound domain = ");
+            x1 = s.nextDouble();
 
-            System.out.println(" higherbound domain = ");
-            high = s.nextDouble();
+             System.out.println(" higherbound domain = ");
+            x2 = s.nextDouble();
 
             System.out.println(" How accurate would you like to be\n" + // inputs the amount of cylinders to use
                     "acc =");
@@ -77,11 +81,14 @@ public class Main {
 
             System.out.println(" Your final equation will look like f(x) = " + m + "x " + b);
 
-            functions.setDomain(low, high);                              // sends parameters to setting methods
-            functions.set_Gx(gx);
+            functions.setRange(y1, y2);                              // sends parameters to setting methods
+            functions.setDomain(x1, x2);
+            functions.Quadrant1(x1 ,x2 ,y1 ,y2);
 
             functions.setIterations(n);
 
+            System.out.println(" Calculating the volume... ");
+            System.out.println(functions.CalcVolumeLinear(m, b));
 
 
 
