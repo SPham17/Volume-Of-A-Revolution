@@ -16,6 +16,7 @@ public class Main {
         double x2;
         int n;                  // number of slices
 
+        double gx;
 
         int choice;             // choice to continue or leave (userinput)
         boolean cont = true;    // continue or leave, true or false
@@ -60,14 +61,6 @@ public class Main {
             System.out.println(" Please input your y-intercept");   // user inputs y - intercept
             b = s.nextDouble();
 
-
-            System.out.println(" Set two ranges\n " +              // user inputs lowerbound and higherbound domain
-                    "lowerbound ramge = ");
-            y1 = s.nextDouble();
-
-            System.out.println(" higherbound range = ");
-            y2 = s.nextDouble();
-
             System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
                 "lowerbound domain = ");
             x1 = s.nextDouble();
@@ -75,20 +68,24 @@ public class Main {
              System.out.println(" higherbound domain = ");
             x2 = s.nextDouble();
 
+            System.out.println(" value of g(x) = ");
+            gx = s.nextDouble();
+
             System.out.println(" How accurate would you like to be\n" + // inputs the amount of cylinders to use
                     "acc =");
             n = s.nextInt();
 
-            System.out.println(" Your final equation will look like f(x) = " + m + "x " + b);
+            System.out.println(" Your final equation will look like f(x) = " + m + "x " + b +
+                    "\n g(x = " + gx);
 
-            functions.setRange(y1, y2);                              // sends parameters to setting methods
+
             functions.setDomain(x1, x2);
-            functions.Quadrant1(x1 ,x2 ,y1 ,y2);
+           // functions.Quadrant1(x1 ,x2 ,y1 ,y2);
 
             functions.setIterations(n);
 
             System.out.println(" Calculating the volume... ");
-            System.out.println(functions.CalcVolumeLinear(m, b));
+            //System.out.println(functions.CalcVolumeLinear(m, b));
 
 
 

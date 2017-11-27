@@ -14,15 +14,17 @@ public class Utility {
     private double diameter;
     private double radius;      // radius
     private double height;
-    private double circle;
+    private double Area;
+    private double circum;
 
-    private int N;              // number of cylinders
+    private double N;              // number of cylinders
     private double cylinder;    //volume  of cylinder
 
     private double Low;         // lowerbound domain
     private double High;        // higherbound domain
 
     private double gx;          // gx
+
 
     //functions variables
     private double M;           // slope
@@ -45,10 +47,6 @@ public class Utility {
 
         this.Low = low;
         this.High = high;
-
-    }
-
-    public void setRadius(double low, double high){
 
     }
 
@@ -75,16 +73,20 @@ public class Utility {
 
     private double CalcAreaLinear() {
 
-        volume = 0;                                           // sets area to 0, previous area will not interrupt this method
-        this.diameter = (High - Low);
-        this.radius = diameter / 2;
-        this.circle = Math.PI * (radius*radius);              // finds area of circle
-        this.height = M * Low + B;
+        volume = 0;
+                                                   // sets area to 0, previous area will not interrupt this method
+        this.width = (High - Low) / N;
+        this.radius = (High - Low);
+        this.height = M * Low + B - gx;
+        this.circum = 2 * Math.PI * radius;
+
+        this.volume = circum * height *N;
 
         for (double x = 0; x < this.N; x++) {               // keeps adding one rectangle until it reaches the number of slices
 
-            this.cylinder = this.circle * this.height;
+            this.cylinder = this.Area* this.height;
             this.volume += cylinder;                         // adds rectangle to the total area
+            this.height = this.M * this.Low + this.B - this.gx; // finds new height for new rectangle
         }                                                   // repeat until reaches number of slices
         return this.volume;                                   // returns area
     }
