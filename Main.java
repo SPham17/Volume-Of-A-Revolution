@@ -22,6 +22,7 @@ public class Main {
         int ch;                 // choice to start or not (userinput)
         boolean start = true;   // start or leave, true or false
         boolean startgo = true;
+        boolean neg = true;
 
 
         Utility functions = new Utility();
@@ -64,7 +65,7 @@ public class Main {
             System.out.println(" Please input your y-intercept");   // user inputs y - intercept
             b = s.nextDouble();
 
-            while (functions.neg) {
+            while (neg) {
 
                 System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
                         "lowerbound domain = ");
@@ -78,32 +79,35 @@ public class Main {
                 n = s.nextInt();
 
                 functions.setQuadrant1(low, high, n);
-
-               /* if (functions.neg = true) {
-                    System.out.println(functions.getQuadrant1());
-
-                } else if (functions.neg = false) {
-                    System.out.println(functions.getQuadrant1());
-                }
-                    */
                 functions.getInteger();
+
+               if (functions.negative) {
+                   System.out.println(functions.getQuadrant1());
+
+                } else {
+                   neg = false;
+                   System.out.println(functions.getQuadrant1());
+               }
+
+
                 functions.setDomain(low, high);
                 functions.setIterations(n);
             }
 
-            System.out.println(" Your final equation will look like f(x) = " + m + "x +" + b);
+            System.out.println(" Your final equation will look like f(x) = " + m + "x +" + b + "\n");
 
             System.out.println(" Calculating the volume... ");
             System.out.println(functions.CalculateVolume(m, b));
 
 
-            System.out.println(" Would you like to try again? \n" +
+            System.out.println("\n\n Would you like to try again? \n" +
                     " (1) Yes \n" +
                     " (2) No ");
 
             choice = s.nextInt();
             if (choice == 1){
                 cont = true;
+                neg = true;
             }
             if (choice == 2) {
                 cont = false;

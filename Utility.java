@@ -23,7 +23,8 @@ public class Utility {
     private double B;           // y-intercept
 
     private String Q1;          // returns everything, ensuring that values meet requirements of quadrant 1
-    public boolean neg = true;
+    public boolean negative = true;
+    Main neg = new Main();
 
     public void resetData() {                                        // that will reset all of the private data in the AreaBtwn object to 0, zero
 
@@ -91,13 +92,13 @@ public class Utility {
 
     public void setQuadrant1(double low, double high, double n) {
 
-        if (Low < 0 && High < Low  && N < 0) {
-            neg = true;
+        if (low < 0 || high < low  || n < 0) {
 
             Q1 = ("\n INVALID\n" +
-                    " Please input a positive values\n ");
+                    " Please input a positive values\n" +
+                    " Also, please ensure your lower domain is less than your higher domain.\n\n ");
         } else {
-            neg = false;
+            negative = false;
             Q1 = ("\n All numbers are positive!\n" +
                     " Proceeding...\n\n");
 
@@ -106,7 +107,6 @@ public class Utility {
         return this.Q1;
     }
     public boolean getInteger(){
-        System.out.print(neg);
-        return this.neg;
+        return this.negative;
     }
 }
