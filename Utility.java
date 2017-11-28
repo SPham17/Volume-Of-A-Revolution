@@ -91,7 +91,7 @@ public class Utility {
 
     public void setQuadrant1(double low, double high, double n) {
 
-        if (Low < 0 || High < Low  || N < 0) {
+        if (Low < 0 && High < Low  && N < 0) {
             neg = true;
 
             Q1 = ("\n INVALID\n" +

@@ -21,6 +21,7 @@ public class Main {
 
         int ch;                 // choice to start or not (userinput)
         boolean start = true;   // start or leave, true or false
+        boolean startgo = true;
 
 
         Utility functions = new Utility();
@@ -37,19 +38,21 @@ public class Main {
 
             ch = s.nextInt();                                               // user input of the choice
 
-            if (ch == 2) {
-                System.out.println(" Have a nice day! ");                   // stop if true
-                break;
-            }
-
             if (ch == 1) {
                 System.out.println("Lets get started!\n");                   // start if false
                 start = false;
+                startgo = true;
+            }
+
+            if (ch == 2) {
+                System.out.println(" Have a nice day! ");                   // stop if true
+                startgo = false;
+                break;
             }
 
         }
 
-        while (cont) {
+        while (cont && startgo) {
             functions.resetData();
 
             System.out.println(" We will be using the default function, Linear: f(x) = mx + b" +
@@ -76,13 +79,13 @@ public class Main {
 
                 functions.setQuadrant1(low, high, n);
 
-                if (functions.neg = true) {
+               /* if (functions.neg = true) {
                     System.out.println(functions.getQuadrant1());
 
                 } else if (functions.neg = false) {
                     System.out.println(functions.getQuadrant1());
                 }
-
+                    */
                 functions.getInteger();
                 functions.setDomain(low, high);
                 functions.setIterations(n);
