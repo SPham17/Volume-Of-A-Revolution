@@ -10,13 +10,11 @@ public class Main {
         double b;               // y - intercept
         double m;               // slope value
 
-        double y1;             // lowerbound domain
-        double y2;            // higherbound domain
-        double x1;
-        double x2;
+
+        double low;
+        double high;
         int n;                  // number of slices
 
-        double gx;
 
         int choice;             // choice to continue or leave (userinput)
         boolean cont = true;    // continue or leave, true or false
@@ -24,7 +22,6 @@ public class Main {
         int ch;                 // choice to start or not (userinput)
         boolean start = true;   // start or leave, true or false
 
-        int z = 0;
 
         Utility functions = new Utility();
 
@@ -52,8 +49,11 @@ public class Main {
 
         }
 
+        while (cont) {
+            functions.resetData();
+
             System.out.println(" We will be using the default function, Linear: f(x) = mx + b" +
-                    "\n We will only be limited to the first quadrant, which means all values given ");
+                    "\n We will only be limited to the first quadrant, which means all values given\n ");
 
             System.out.println(" Please input the slope");          // user inputs slope
             m = s.nextDouble();
@@ -61,34 +61,52 @@ public class Main {
             System.out.println(" Please input your y-intercept");   // user inputs y - intercept
             b = s.nextDouble();
 
-            System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
-                "lowerbound domain = ");
-            x1 = s.nextDouble();
+            while (functions.neg) {
 
-             System.out.println(" higherbound domain = ");
-            x2 = s.nextDouble();
+                System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
+                        "lowerbound domain = ");
+                low = s.nextDouble();
 
-            System.out.println(" value of g(x) = ");
-            gx = s.nextDouble();
+                System.out.println(" higherbound domain = ");
+                high = s.nextDouble();
 
-            System.out.println(" How accurate would you like to be\n" + // inputs the amount of cylinders to use
-                    "acc =");
-            n = s.nextInt();
+                System.out.println(" How accurate would you like to be\n" + // inputs the amount of cylinders to use
+                        "acc =");
+                n = s.nextInt();
 
-            System.out.println(" Your final equation will look like f(x) = " + m + "x " + b +
-                    "\n g(x = " + gx);
+                functions.setQuadrant1(low, high, n);
 
+                if (functions.neg = true) {
+                    System.out.println(functions.getQuadrant1());
 
-            functions.setDomain(x1, x2);
-           // functions.Quadrant1(x1 ,x2 ,y1 ,y2);
+                } else if (functions.neg = false) {
+                    System.out.println(functions.getQuadrant1());
+                }
 
-            functions.setIterations(n);
+                functions.getInteger();
+                functions.setDomain(low, high);
+                functions.setIterations(n);
+            }
+
+            System.out.println(" Your final equation will look like f(x) = " + m + "x +" + b);
 
             System.out.println(" Calculating the volume... ");
-            //System.out.println(functions.CalcVolumeLinear(m, b));
+            System.out.println(functions.CalculateVolume(m, b));
 
 
+            System.out.println(" Would you like to try again? \n" +
+                    " (1) Yes \n" +
+                    " (2) No ");
 
+            choice = s.nextInt();
+            if (choice == 1){
+                cont = true;
+            }
+            if (choice == 2) {
+                cont = false;
+            }
         }
     }
+    }
+
 
