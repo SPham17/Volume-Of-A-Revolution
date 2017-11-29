@@ -11,47 +11,54 @@ public class Main {
         double m;               // slope value
 
 
-        double low;
-        double high;
-        int n;                  // number of slices
+        double low;             // lowerbound domain (userinput)
+        double high;            // higherbound domain (userinput)
+        int n;                  // number of shells (userinput)
 
 
         int choice;             // choice to continue or leave (userinput)
-        boolean cont = true;    // continue or leave, true or false
+        boolean cont = true;    // continue or leave, true or false (userinput)
 
         int ch;                 // choice to start or not (userinput)
-        boolean start = true;   // start or leave, true or false
-        boolean startgo = true;
-        boolean neg = true;
+        boolean start = true;   // start or leave, true or false (userinput)
+        boolean startgo = true; // another factor to start or leave the program
+        boolean neg = true;     // to ensure that the variables are not negative (userinput)
 
 
-        Utility functions = new Utility();
+        Utility functions = new Utility();  // access to the "Utility" class
 
         Scanner s = new Scanner(System.in); // scanner allowing userinput
 
         //----------------------------------------------------------------------------
-
+        // decides whether they would like to start
         System.out.println("Welcome to Calculating the volume of a revolution");
 
-        System.out.println("Would you like to start?\n 1. Yes\n 2. No");    // decides whether they would like to start
+        System.out.println("Would you like to start?\n 1. Yes\n 2. No");
 
-        while (start) {                                                      // if start is true, then begin
+        //----------------------------------------------------------------------------
+        // if start is true, then begin
+        while (start) {
 
             ch = s.nextInt();                                               // user input of the choice
 
+            // start if false, and if startgo is true
             if (ch == 1) {
-                System.out.println("Lets get started!\n");                   // start if false
+                System.out.println("Lets get started!\n");
                 start = false;
                 startgo = true;
             }
 
+            // stop if true, breaks out of program
             if (ch == 2) {
-                System.out.println(" Have a nice day! ");                   // stop if true
+                System.out.println(" Have a nice day! ");
                 startgo = false;
                 break;
             }
 
         }
+        //-----------------------------------------------------------------------
+        // while statement loops while cont and startgo are true
+        // resets all data at the start, to ensure previous data will not be used
 
         while (cont && startgo) {
             functions.resetData();
@@ -59,37 +66,57 @@ public class Main {
             System.out.println(" We will be using the default function, Linear: f(x) = mx + b" +
                     "\n We will only be limited to the first quadrant, which means all values given\n ");
 
-            System.out.println(" Please input the slope");          // user inputs slope
+            // user inputs slope
+            System.out.println(" Please input the slope");
             m = s.nextDouble();
 
-            System.out.println(" Please input your y-intercept");   // user inputs y - intercept
+            // user inputs y - intercept
+            System.out.println(" Please input your y-intercept");
             b = s.nextDouble();
+
+            //--------------------------------------------------------------------
+            // if neg is true, it will keep looping until false
+            // will keep looping if a negative was inputted for the domains, or iterations
 
             while (neg) {
 
-                System.out.println(" Set two domains\n " +              // user inputs lowerbound and higherbound domain
+                // user inputs lowerbound domain
+                System.out.println(" Set two domains\n " +
                         "lowerbound domain = ");
                 low = s.nextDouble();
 
+                // user inputs higherbound domain
                 System.out.println(" higherbound domain = ");
                 high = s.nextDouble();
 
-                System.out.println(" How accurate would you like to be\n" + // inputs the amount of cylinders to use
+                // inputs the amount of iterations (shells) to use
+                System.out.println(" How accurate would you like to be\n" +
                         "acc =");
                 n = s.nextInt();
 
+                // gives the following parameters to the utility class, and the following method
                 functions.setQuadrant1(low, high, n);
+
+                // gets the numbers from setQuadrant1, ensures that they are not negative
                 functions.getInteger();
 
+                // negative is set to true, if it is true, loop back to the start of loop
                if (functions.negative) {
+
+                   // returns String: Q1 if negative numbers were inputted
                    System.out.println(functions.getQuadrant1());
 
+                // if numbers are positive, continue the program
                 } else {
+
+                   // will change neg to false, therefore, oppose the while conditons and exit the loop
                    neg = false;
+
+                   //returns String: Q1 if positive numbers were inputted
                    System.out.println(functions.getQuadrant1());
                }
 
-
+                // sends parameters the following parameters to be used within private methods in Utility class
                 functions.setDomain(low, high);
                 functions.setIterations(n);
             }
@@ -97,12 +124,19 @@ public class Main {
             System.out.println(" Your final equation will look like f(x) = " + m + "x +" + b + "\n");
 
             System.out.println(" Calculating the volume... ");
+
+            // prints a line that with the volume inputted from the Utility class
             System.out.println(functions.CalculateVolume(m, b));
 
 
             System.out.println("\n\n Would you like to try again? \n" +
                     " (1) Yes \n" +
                     " (2) No ");
+
+            //----------------------------------------------------------------------
+            // user decides whether they would like to try again or not
+            // if they do, resets the while loops according to their conditions
+            // if false, break out of the program
 
             choice = s.nextInt();
             if (choice == 1){
@@ -112,7 +146,7 @@ public class Main {
             if (choice == 2) {
                 cont = false;
             }
-        }
+        }//end of while loop
     }
     }
 

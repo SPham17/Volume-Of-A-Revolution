@@ -24,15 +24,16 @@ public class Utility {
 
     private String Q1;          // returns everything, ensuring that values meet requirements of quadrant 1
     public boolean negative = true;
-    Main neg = new Main();
+   ;
 
-    public void resetData() {                                        // that will reset all of the private data in the AreaBtwn object to 0, zero
+    public void resetData() {              // that will reset all of the private data in the AreaBtwn object to 0, zero
 
         Low = 0;
         High = 0;
         volume = 0;
         M = 0;
         B = 0;
+        negative = true;
 
     }
 
@@ -66,12 +67,16 @@ public class Utility {
 
     private double CalcVolumeLinear() {
 
+        // keeps adding one rectangle until it reaches the number of slices
+        for (double x = 0; x < this.N; x++) {
 
-        for (double x = 0; x < this.N; x++) {                 // keeps adding one rectangle until it reaches the number of slices
+            // distance between the shells. divided by number of shells to ensure they are even
+            this.dradius = (this.High - this.Low) / this.N;
 
-            this.dradius = (this.High - this.Low) / this.N;                      // distance between the shells. divided by number of shells to ensure they are even
             this.radius = this.High - this.dradius * x;
-            this.height = this.M * this.radius + this.B;                            // gets initial height from first shell
+
+            // gets initial height from first shell
+            this.height = this.M * this.radius + this.B;
 
             this.circum = 2 * Math.PI * radius;
 
