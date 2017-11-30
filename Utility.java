@@ -4,16 +4,15 @@ package com.company;
  * Created by 07517pha on 23/11/2017.
  */
 public class Utility {
+    private double volume;      // volume
 
-    private double volume;        //area
-
-    private double dradius;     // delta radius
+    private double dradius;     // delta radius, units between each shell
     private double radius;      // radius
-    private double height;
+    private double height;      // height
 
-    private double circum;
+    private double circum;      // circumference
 
-    private double N;              // number of cylinders
+    private double N;           // number of shells
 
     private double Low;         // lowerbound domain
     private double High;        // higherbound domain
@@ -23,10 +22,12 @@ public class Utility {
     private double B;           // y-intercept
 
     private String Q1;          // returns everything, ensuring that values meet requirements of quadrant 1
-    public boolean negative = true;
-   ;
+    public boolean negative = true; // used to loop negative numbers
 
-    public void resetData() {              // that will reset all of the private data in the AreaBtwn object to 0, zero
+    //-------------------------------------------------------------------------------------------------------
+    //resets all of the user inputted data to the default data from the start
+
+    public void resetData() {
 
         Low = 0;
         High = 0;
@@ -36,56 +37,75 @@ public class Utility {
         negative = true;
 
     }
+    //-------------------------------------------------------------------------------------------------------
+    // sets the domain, uses private variables referring to the variables from the main
 
-
-    public void setDomain(double low, double high) {                // sets the domain, uses private variables referring to the variables from the main
+    public void setDomain(double low, double high) {
 
         this.Low = low;
         this.High = high;
 
     }
+    //-------------------------------------------------------------------------------------------------------
+    // sets number of shells, uses private variables referring to the main
 
-    public void setIterations(int n) {                              // sets number of slices, uses private variables referring to the main
+    public void setIterations(int n) {
 
         this.N = n;
 
     }
+    //-------------------------------------------------------------------------------------------------------
+    // prints out the volume when called, area is always positive
 
     private void displayVolume() {
 
-        System.out.println("Volume is = " + Math.abs(volume) + " units cubed\n "); // prints out the area when called, area is always positive
+        System.out.println("Volume is = " + Math.abs(volume) + " units cubed\n ");
 
     }
+    //-------------------------------------------------------------------------------------------------------
+    // grabs parameters from main.
 
-    private void setData(double m, double b) {              // grabs parameters from main. sets datatype from AreaBtwn to refer to the main
+    private void setData(double m, double b) {
 
         M = m;
         B = b;
 
     }
-
+    //-------------------------------------------------------------------------------------------------------
+    // calculates volume of the revolution
 
     private double CalcVolumeLinear() {
 
-        // keeps adding one rectangle until it reaches the number of slices
+        // keeps adding one shell until it reaches the number of iterations the user inputs
         for (double x = 0; x < this.N; x++) {
 
             // distance between the shells. divided by number of shells to ensure they are even
             this.dradius = (this.High - this.Low) / this.N;
 
+            // finds radius of the shell, finds new radius depending on which shell iteration it is.
             this.radius = this.High - this.dradius * x;
 
-            // gets initial height from first shell
+            // finds height, height differs in each shell, uses a different radius in different iterations
             this.height = this.M * this.radius + this.B;
 
+            // finds circumference, circuference differs in each shell, uses a different radius in different iterations
             this.circum = 2 * Math.PI * radius;
 
+            // finds volume of the shell with previously calculated data, adds to total volume
+            this.volume += Math.abs(dradius * height * circum);
 
-            this.volume += Math.abs(dradius * height * circum);                         // adds rectangle to the total area
+        // repeat until reaches number of shells / iterations
+        }
 
-        }                                                   // repeat until reaches number of slices
-        return this.volume;                                   // returns area
+        // returns volume
+        return this.volume;
+
     }
+    //-------------------------------------------------------------------------------------------------------
+    // used from the main, links main to this public method, which branches off to private methods in Utility
+    // grabs parameters from main to private method setData
+    // calculates volume, and loops until number of iterations is reached
+    // displays message made in the method "displayVolume()"
 
     public double CalculateVolume(double m, double b) {
         setData(m, b);
@@ -93,7 +113,11 @@ public class Utility {
         displayVolume();
         return this.volume;
     }
-
+    //-------------------------------------------------------------------------------------------------------
+    // method ensures that positive units are inputted from the user
+    /* if lower domain is less than 0, higher domain is more than lower domain, or number of iterations is less than 0
+     than sets the String Q1 to the message displayed */
+    // if all the numbers are positive, set negative to false to exit loop inside main, sets the String Q1
 
     public void setQuadrant1(double low, double high, double n) {
 
@@ -107,10 +131,19 @@ public class Utility {
             Q1 = ("\n All numbers are positive!\n" +
                     " Proceeding...\n\n");
 
-    }}
+            }
+    }
+    //-------------------------------------------------------------------------------------------------------
+    // returns the string Q1 to the main
+    // Q1 differs from the conditions in method "setQuadrant1"
+
     public String getQuadrant1() {
         return this.Q1;
     }
+    //-------------------------------------------------------------------------------------------------------
+    // returns the negative condition to the main
+    // condition of negative differs from the conditions in method "setQuadrant1"
+
     public boolean getInteger(){
         return this.negative;
     }

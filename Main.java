@@ -31,7 +31,7 @@ public class Main {
 
         //----------------------------------------------------------------------------
         // decides whether they would like to start
-        System.out.println("Welcome to Calculating the volume of a revolution");
+        System.out.println("Welcome to Calculating the Volume of a Revolution ( Please answer using the numbers)");
 
         System.out.println("Would you like to start?\n 1. Yes\n 2. No");
 
@@ -147,7 +147,7 @@ public class Main {
                 cont = false;
             }
         }//end of while loop
-    }
-    }
+    } // end of main method
+    }// end of class
 
 
