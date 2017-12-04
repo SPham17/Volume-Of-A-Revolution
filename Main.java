@@ -13,6 +13,7 @@ public class Main {
 
         double low;             // lowerbound domain (userinput)
         double high;            // higherbound domain (userinput)
+        double gx;
         int n;                  // number of shells (userinput)
 
 
@@ -46,6 +47,7 @@ public class Main {
                 System.out.println("Lets get started!\n");
                 start = false;
                 startgo = true;
+
             }
 
             // stop if true, breaks out of program
@@ -53,9 +55,10 @@ public class Main {
                 System.out.println(" Have a nice day! ");
                 startgo = false;
                 break;
+
             }
 
-        }
+        } // end while statement
         //-----------------------------------------------------------------------
         // while statement loops while cont and startgo are true
         // resets all data at the start, to ensure previous data will not be used
@@ -89,10 +92,17 @@ public class Main {
                 System.out.println(" higherbound domain = ");
                 high = s.nextDouble();
 
+                // user inputs a g(x) (range)
+                System.out.println(" Please input a g(x)");
+                gx = s.nextDouble();
+
                 // inputs the amount of iterations (shells) to use
                 System.out.println(" How accurate would you like to be\n" +
                         "acc =");
                 n = s.nextInt();
+
+                // sends gx to the method in Utility class
+                functions.set_Gx(gx);
 
                 // gives the following parameters to the utility class, and the following method
                 functions.setQuadrant1(low, high, n);
@@ -121,15 +131,14 @@ public class Main {
                 functions.setIterations(n);
             }
 
-            System.out.println(" Your final equation will look like f(x) = " + m + "x +" + b + "\n");
+            System.out.println(" Your final equation will look like f(x) = " + m + "x + " + b + "\n");
 
             System.out.println(" Calculating the volume... ");
 
             // prints a line that with the volume inputted from the Utility class
-            System.out.println(functions.CalculateVolume(m, b));
+            functions.CalculateVolume(m, b);
 
-
-            System.out.println("\n\n Would you like to try again? \n" +
+            System.out.println(" Would you like to try again? \n" +
                     " (1) Yes \n" +
                     " (2) No ");
 
@@ -143,6 +152,7 @@ public class Main {
                 cont = true;
                 neg = true;
             }
+
             if (choice == 2) {
                 cont = false;
             }

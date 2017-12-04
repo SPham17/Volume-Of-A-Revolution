@@ -12,6 +12,7 @@ public class Utility {
 
     private double circum;      // circumference
 
+    private double Gx;          // gx
     private double N;           // number of shells
 
     private double Low;         // lowerbound domain
@@ -34,9 +35,11 @@ public class Utility {
         volume = 0;
         M = 0;
         B = 0;
+        Gx = 0
         negative = true;
 
     }
+
     //-------------------------------------------------------------------------------------------------------
     // sets the domain, uses private variables referring to the variables from the main
 
@@ -44,6 +47,12 @@ public class Utility {
 
         this.Low = low;
         this.High = high;
+
+    }
+
+    public void set_Gx (double gx) {
+
+        this.Gx = gx;
 
     }
     //-------------------------------------------------------------------------------------------------------
@@ -54,14 +63,16 @@ public class Utility {
         this.N = n;
 
     }
+
     //-------------------------------------------------------------------------------------------------------
     // prints out the volume when called, area is always positive
 
     private void displayVolume() {
 
-        System.out.println("Volume is = " + Math.abs(volume) + " units cubed\n ");
+        System.out.println(" Volume is = " + Math.abs(volume) + " units cubed\n ");
 
     }
+
     //-------------------------------------------------------------------------------------------------------
     // grabs parameters from main.
 
@@ -71,6 +82,7 @@ public class Utility {
         B = b;
 
     }
+
     //-------------------------------------------------------------------------------------------------------
     // calculates volume of the revolution
 
@@ -86,7 +98,7 @@ public class Utility {
             this.radius = this.High - this.dradius * x;
 
             // finds height, height differs in each shell, uses a different radius in different iterations
-            this.height = this.M * this.radius + this.B;
+            this.height = this.M * this.radius + (this.B - this.Gx);
 
             // finds circumference, circuference differs in each shell, uses a different radius in different iterations
             this.circum = 2 * Math.PI * radius;
@@ -95,37 +107,42 @@ public class Utility {
             this.volume += Math.abs(dradius * height * circum);
 
         // repeat until reaches number of shells / iterations
-        }
+        } // end of for loop
 
         // returns volume
         return this.volume;
 
     }
+
     //-------------------------------------------------------------------------------------------------------
-    // used from the main, links main to this public method, which branches off to private methods in Utility
+    // used from the Main, links main to this public method, which branches off to private methods in Utility
     // grabs parameters from main to private method setData
-    // calculates volume, and loops until number of iterations is reached
+    // calculates volume, and loops until number of iterations is reached using the CalcVolumeLinear method
     // displays message made in the method "displayVolume()"
 
-    public double CalculateVolume(double m, double b) {
+    public void CalculateVolume(double m, double b) {
         setData(m, b);
         CalcVolumeLinear();
         displayVolume();
-        return this.volume;
+
     }
+
     //-------------------------------------------------------------------------------------------------------
     // method ensures that positive units are inputted from the user
-    /* if lower domain is less than 0, higher domain is more than lower domain, or number of iterations is less than 0
-     than sets the String Q1 to the message displayed */
-    // if all the numbers are positive, set negative to false to exit loop inside main, sets the String Q1
 
     public void setQuadrant1(double low, double high, double n) {
 
-        if (low < 0 || high < low  || n < 0) {
+        /* if lower domain is less than 0, higher domain is more than lower domain, or number of iterations is less than
+           0 than sets the String Q1 to the message displayed */
+        if (low < 0 || high <= low  || n < 0) {
 
-            Q1 = ("\n INVALID\n" +
+            Q1 = ("\n INVALID\n\n" +
                     " Please input a positive values\n" +
-                    " Also, please ensure your lower domain is less than your higher domain.\n\n ");
+                    " Also, please ensure the following:\n" +
+                    "  - Your lower domain is less than your higher domain\n" +
+                    "  - Your two domains do not equal eachother \n\n");
+
+            // if all the numbers are positive, set negative to false to exit loop inside main, sets the String Q1
         } else {
             negative = false;
             Q1 = ("\n All numbers are positive!\n" +
@@ -133,6 +150,7 @@ public class Utility {
 
             }
     }
+
     //-------------------------------------------------------------------------------------------------------
     // returns the string Q1 to the main
     // Q1 differs from the conditions in method "setQuadrant1"
