@@ -13,7 +13,6 @@ public class Main {
 
         double low;             // lowerbound domain (userinput)
         double high;            // higherbound domain (userinput)
-        double gx;
         int n;                  // number of shells (userinput)
 
 
@@ -92,17 +91,10 @@ public class Main {
                 System.out.println(" higherbound domain = ");
                 high = s.nextDouble();
 
-                // user inputs a g(x) (range)
-                System.out.println(" Please input a g(x)");
-                gx = s.nextDouble();
-
                 // inputs the amount of iterations (shells) to use
                 System.out.println(" How accurate would you like to be\n" +
                         "acc =");
                 n = s.nextInt();
-
-                // sends gx to the method in Utility class
-                functions.set_Gx(gx);
 
                 // gives the following parameters to the utility class, and the following method
                 functions.setQuadrant1(low, high, n);

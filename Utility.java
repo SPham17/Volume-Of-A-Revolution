@@ -12,7 +12,6 @@ public class Utility {
 
     private double circum;      // circumference
 
-    private double Gx;          // gx
     private double N;           // number of shells
 
     private double Low;         // lowerbound domain
@@ -35,7 +34,6 @@ public class Utility {
         volume = 0;
         M = 0;
         B = 0;
-        Gx = 0
         negative = true;
 
     }
@@ -50,11 +48,6 @@ public class Utility {
 
     }
 
-    public void set_Gx (double gx) {
-
-        this.Gx = gx;
-
-    }
     //-------------------------------------------------------------------------------------------------------
     // sets number of shells, uses private variables referring to the main
 
@@ -98,7 +91,7 @@ public class Utility {
             this.radius = this.High - this.dradius * x;
 
             // finds height, height differs in each shell, uses a different radius in different iterations
-            this.height = this.M * this.radius + (this.B - this.Gx);
+            this.height = this.M * this.radius + this.B;
 
             // finds circumference, circuference differs in each shell, uses a different radius in different iterations
             this.circum = 2 * Math.PI * radius;
@@ -140,7 +133,7 @@ public class Utility {
                     " Please input a positive values\n" +
                     " Also, please ensure the following:\n" +
                     "  - Your lower domain is less than your higher domain\n" +
-                    "  - Your two domains do not equal eachother \n\n");
+                    "  - Your two domains do not equal eachother \n");
 
             // if all the numbers are positive, set negative to false to exit loop inside main, sets the String Q1
         } else {
